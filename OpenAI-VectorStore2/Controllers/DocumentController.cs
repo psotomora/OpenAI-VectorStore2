@@ -17,7 +17,7 @@ namespace OpenAIAssistantAPI.Controllers
         public DocumentController()
         {
             // Clave API de OpenAI
-            var openAiApiKey = "tu_clave_api_de_openai";
+            var openAiApiKey = "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";
 
             // Crear cliente OpenAI
             _openAiService = new OpenAIService(new OpenAiOptions { ApiKey = openAiApiKey });
