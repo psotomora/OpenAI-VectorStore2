@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Assistant con Vector Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>OpenAI Assistant con Vector Store</h1>
+
+    <!-- Sección para subir documento -->
+    <h3>Subir Documento</h3>
+    <input type="file" id="documento" />
+    <button onclick="subirDocumento()">Subir Documento</button>
+    <p id="resultado-subida"></p>
+
+    <!-- Sección para realizar consulta -->
+    <h3>Realizar Consulta</h3>
+    <input type="text" id="consulta" placeholder="Escribe tu consulta" />
+    <button onclick="realizarConsulta()">Consultar</button>
+    <p id="resultado-consulta"></p>
+
+    <script>async function subirDocumento() {
+            const fileInput = document.getElementById('documento');
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/api/document/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const resultado = await response.text();
+            document.getElementById('resultado-subida').innerText = resultado;
+        }
+
+        async function realizarConsulta() {
+            const consulta = document.getElementById('consulta').value;
+
+            const response = await fetch('/api/document/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(consulta)
+            });
+
+            const resultado = await response.json();
+            let textoResultado = 'Resultados:\n';
+            resultado.forEach(item => {
+                textoResultado += `Documento: ${item.Id}, Similaridad: ${item.Score}\n`;
+            });
+
+            document.getElementById('resultado-consulta').innerText = textoResultado;
+        }</script>
+</body>
+</html>
