@@ -1,5 +1,16 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
+// Obtener la clave API de OpenAI desde appsettings.json
+var openAiApiKey = builder.Configuration["OpenAI:ApiKey"];
+
+if (string.IsNullOrEmpty(openAiApiKey))
+{
+    throw new Exception("La clave de API de OpenAI no está configurada.");
+}
+
+builder.Services.AddSingleton(openAiApiKey);
+
+
 // Agregar controladores
 builder.Services.AddControllers();
 

@@ -11,7 +11,16 @@ namespace OpenAIAssistantAPI.Controllers
     [Route("api/[controller]")]
     public class DocumentController : ControllerBase
     {
-        private readonly string openAiApiKey = "tu_clave_api_de_openai";
+
+        private readonly string _openAiApiKey;
+
+        // Inyectamos la clave de OpenAI a través del constructor
+        public DocumentController(string openAiApiKey)
+        {
+            _openAiApiKey = openAiApiKey;
+        }
+
+        // private readonly string openAiApiKey = "YOU_API_KEY";
 
         // Subir documento y generar embeddings
         [HttpPost("upload")]
@@ -31,7 +40,7 @@ namespace OpenAIAssistantAPI.Controllers
             var request = new RestRequest();
             request.Method = Method.Post; // Asignamos el método HTTP POST aquí
 
-            request.AddHeader("Authorization", $"Bearer {openAiApiKey}");
+            request.AddHeader("Authorization", $"Bearer {_openAiApiKey}");
             request.AddHeader("Content-Type", "application/json");
 
             var body = new
@@ -78,7 +87,7 @@ namespace OpenAIAssistantAPI.Controllers
             var request = new RestRequest();
             request.Method = Method.Post; // Asignamos el método HTTP POST aquí
 
-            request.AddHeader("Authorization", $"Bearer {openAiApiKey}");
+            request.AddHeader("Authorization", $"Bearer {_openAiApiKey}");
             request.AddHeader("Content-Type", "application/json");
 
             var body = new
