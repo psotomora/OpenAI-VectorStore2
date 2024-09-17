@@ -28,5 +28,15 @@ var app = builder.Build();
 // Habilitar CORS y servir archivos estáticos
 app.UseCors();
 app.UseStaticFiles();
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Mapea los controladores de API
+    endpoints.MapFallbackToFile("index.html"); // Sirve un archivo HTLM como página de inicio si existe
+
+});
+
+//app.MapControllers();
+
 app.Run();

@@ -45,7 +45,7 @@ namespace OpenAIAssistantAPI.Controllers
 
             var body = new
             {
-                model = "text-embedding-ada-002", // Modelo de embeddings
+                model = "text-embedding-3-large", // Modelo de embeddings
                 input = fileContent
             };
 
