@@ -41,7 +41,8 @@ namespace OpenAIAssistantAPI.Controllers
             request.Method = Method.Post; // Asignamos el método HTTP POST aquí
 
             request.AddHeader("Authorization", $"Bearer {_openAiApiKey}");
-            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Content-Type", "application/pdf");
+            // request.AddHeader("Content-Type", "application/json");
 
             var body = new
             {
